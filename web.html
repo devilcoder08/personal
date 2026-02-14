@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Siya ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Courier+Prime&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Courier Prime', monospace;
+            background: black;
+        }
+
+        /* Tap Screen */
+        .start-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            cursor: pointer;
+            color: white;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            text-align: center;
+            transition: opacity 1.5s ease;
+        }
+
+        .start-screen.fade-out {
+            opacity: 0;
+        }
+
+        /* Cinematic Siya Intro */
+        .cinematic-intro {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 15;
+            opacity: 0;
+            transform: scale(1.2);
+            transition: all 2.5s ease;
+        }
+
+        .cinematic-intro.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .cinematic-intro h1 {
+            color: white;
+            font-size: 4rem;
+            font-family: 'Great Vibes', cursive;
+            letter-spacing: 3px;
+        }
+
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .overlay.show {
+            opacity: 1;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .title-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: #b30059;
+            margin-bottom: 20px;
+        }
+
+        .typewriter {
+            font-size: 1.3rem;
+            color: #333;
+            min-height: 120px;
+            white-space: pre-wrap;
+            border-right: 3px solid #b30059;
+            padding-right: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0% { border-color: #b30059; }
+            50% { border-color: transparent; }
+            100% { border-color: #b30059; }
+        }
+
+        .buttons {
+            margin-top: 30px;
+            position: relative;
+            height: 80px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        #yesBtn { background-color: #ff4d6d; color: white; left: 40%; }
+        #noBtn { background-color: #6c757d; color: white; left: 60%; }
+    </style>
+</head>
+<body>
+
+<div class="start-screen" id="startScreen">
+    Tap Anywhere ❤️
+</div>
+
+<div class="cinematic-intro" id="cinematicIntro">
+    <h1>Siya ❤️</h1>
+</div>
+
+<div class="video-container">
+    <video id="bgVideo" playsinline>
+        <source src="fireworks.mp4" type="video/mp4">
+    </video>
+</div>
+
+<audio id="proposalMusic">
+    <source src="audio.mp3" type="audio/mpeg">
+</audio>
+
+<div class="overlay" id="proposalSection">
+    <div class="container">
+        
+        <div class="typewriter" id="message"></div>
+        <div class="buttons" id="buttonContainer" style="display:none;">
+            <button class="btn" id="yesBtn">Yes</button>
+            <button class="btn" id="noBtn">No</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const text = `I'm so devotedly yours, just as ink is to the pages, air is to my lungs, flowers are at the feet of any divine existence. Will you be my valentine?`;
+    const speed = 50;
+
+    const startScreen = document.getElementById("startScreen");
+    const cinematicIntro = document.getElementById("cinematicIntro");
+    const proposalSection = document.getElementById("proposalSection");
+    const proposalMusic = document.getElementById("proposalMusic");
+    const messageElement = document.getElementById("message");
+    const buttonContainer = document.getElementById("buttonContainer");
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const video = document.getElementById("bgVideo");
+
+    let i = 0;
+
+    function typeWriter() {
+        if (i < text.length) {
+            messageElement.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        } else {
+            buttonContainer.style.display = "block";
+        }
+    }
+
+    startScreen.addEventListener("click", () => {
+        proposalMusic.play();
+        startScreen.classList.add("fade-out");
+
+        setTimeout(() => {
+            startScreen.style.display = "none";
+            cinematicIntro.classList.add("show");
+        }, 1500);
+
+        setTimeout(() => {
+            cinematicIntro.style.display = "none";
+            proposalSection.classList.add("show");
+            typeWriter();
+        }, 4000);
+    });
+
+    noBtn.addEventListener("mouseover", () => {
+        const containerRect = document.querySelector(".buttons").getBoundingClientRect();
+        const maxX = containerRect.width - noBtn.offsetWidth;
+        const maxY = containerRect.height - noBtn.offsetHeight;
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top = Math.random() * maxY + "px";
+    });
+
+    yesBtn.addEventListener("click", () => {
+        proposalMusic.pause();
+        proposalSection.style.display = "none";
+        video.play();
+    });
+</script>
+
+</body>
+</html>
